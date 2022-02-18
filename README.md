@@ -21,6 +21,26 @@
 ![Maintained](https://img.shields.io/maintenance/yes/9999)
 <!--![Arch Linux package](https://img.shields.io/archlinux/v/community/x86_64/i3lock-color?logo=arch%20linux&label=Community%20version)-->
 
+### This is a fork of i3lock-color
+
+If you want an API for i3lock-color, this fork is for you.
+
+Use `--api-enable` to enable API access, and `--api-path` to change where the API file will be stored (normally at `/tmp/i3lock-api`).
+Also, you can force i3lock to redraw when an API message is received with `--api-redraw`; this is useful to redraw images instantly.
+
+#### How to use it
+
+Write the i3lock-color commands inside **api-path**, for example:
+
+```sh
+i3lock --api-enable
+sleep 1
+echo "--greeter-text \"Hello\" --greeter-color ffffff --color 282828" > /tmp/i3lock-api
+sleep 2
+echo "--greeter-text \"Welcome\" --greeter-color 000000 --color aaaaaa" > /tmp/i3lock-api
+```
+
+
 ### The world's most popular non-default computer lockscreen.
 **A modern version of i3lock with color functionality and other features.**
 
