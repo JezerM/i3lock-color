@@ -18,7 +18,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/Raymo111/i3lock-color?logo=GitHub)](https://github.com/Raymo111/i3lock-color/stargazers)
 [![GitHub watchers](https://img.shields.io/github/watchers/Raymo111/i3lock-color?logo=GitHub)](https://github.com/Raymo111/i3lock-color/watchers)
 [![Discord server](https://img.shields.io/discord/878461145197977630?label=Discord&logo=Discord)](https://discord.gg/FzVPghyDt2)
-![Maintained](https://img.shields.io/maintenance/yes/2022)
+![Maintained](https://img.shields.io/maintenance/yes/9999)
 <!--![Arch Linux package](https://img.shields.io/archlinux/v/community/x86_64/i3lock-color?logo=arch%20linux&label=Community%20version)-->
 
 ### The world's most popular non-default computer lockscreen.
@@ -84,7 +84,7 @@ The following dependencies will need to be installed for a successful build, dep
 ### Debian
 Run this command to install all dependencies:
 ```
-sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util0-dev libxcb-xrm-dev libxcb-xtest0-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
+sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util0-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
 ```
 If you still see missing packages during build after installing all of these dependencies, try following the steps [here](https://github.com/Raymo111/i3lock-color/issues/211#issuecomment-809891727).
 
@@ -98,7 +98,7 @@ sudo dnf install -y autoconf automake cairo-devel fontconfig gcc libev-devel lib
 ### Ubuntu 18/20.04 LTS
 Run this command to install all dependencies:
 ```
-sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxcb-xtest0-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
+sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
 ```
 
 ## Building i3lock-color

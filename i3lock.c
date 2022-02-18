@@ -51,8 +51,6 @@
 #endif
 #include <xcb/xcb_aux.h>
 #include <xcb/randr.h>
-#include <xcb/xtest.h>
-#include <time.h>
 
 #include "i3lock.h"
 #include "xcb.h"
@@ -266,7 +264,6 @@ bool pass_media_keys = false;
 bool pass_screen_keys = false;
 bool pass_power_keys = false;
 bool pass_volume_keys = false;
-bool special_passthrough = false;
 
 // for the rendering thread, so we can clean it up
 pthread_t draw_thread;
@@ -669,32 +666,6 @@ static bool skip_without_validation(void) {
 }
 
 /*
- * Sends key press event to root/wm
- * Releases the keyboard, sends the event, and
- * grabs the keyboard again
- * */
-static void send_key_to_root(xcb_key_press_event_t *event, bool twice) {
-    if (!special_passthrough) {
-        xcb_send_event(conn, true, screen->root, XCB_EVENT_MASK_BUTTON_PRESS, (char *)event);
-        return;
-    }
-
-    xcb_ungrab_keyboard(conn, XCB_CURRENT_TIME);
-    DEBUG("Received: %d at %ld\n", event->detail, time(0));
-
-    xcb_test_fake_input(conn, XCB_KEY_PRESS, event->detail, XCB_CURRENT_TIME, screen->root, 0, 0, 0);
-    xcb_test_fake_input(conn, XCB_KEY_RELEASE, event->detail, XCB_CURRENT_TIME, screen->root, 0, 0, 0);
-
-    if (twice) {
-        xcb_test_fake_input(conn, XCB_KEY_PRESS, event->detail, XCB_CURRENT_TIME, screen->root, 0, 0, 0);
-        xcb_test_fake_input(conn, XCB_KEY_RELEASE, event->detail, XCB_CURRENT_TIME, screen->root, 0, 0, 0);
-    }
-
-    xcb_grab_keyboard(conn, true, screen->root, XCB_CURRENT_TIME, XCB_GRAB_MODE_ASYNC, XCB_GRAB_MODE_ASYNC);
-    xcb_set_input_focus(conn, XCB_INPUT_FOCUS_PARENT, win, XCB_CURRENT_TIME);
-}
-
-/*
  * Handle key presses. Fixes state, then looks up the key symbol for the
  * given keycode, then looks up the key symbol (as UCS-2), converts it to
  * UTF-8 and stores it in the password array.
@@ -753,7 +724,7 @@ static void handle_key_press(xcb_key_press_event_t *event) {
             case XKB_KEY_XF86AudioMute:
             case XKB_KEY_XF86AudioLowerVolume:
             case XKB_KEY_XF86AudioRaiseVolume:
-                send_key_to_root(event, true);
+                xcb_send_event(conn, true, screen->root, XCB_EVENT_MASK_BUTTON_PRESS, (char *)event);
                 return;
         }
     }
@@ -763,7 +734,7 @@ static void handle_key_press(xcb_key_press_event_t *event) {
         switch(ksym) {
             case XKB_KEY_XF86MonBrightnessUp:
             case XKB_KEY_XF86MonBrightnessDown:
-                send_key_to_root(event, false);
+                xcb_send_event(conn, true, screen->root, XCB_EVENT_MASK_BUTTON_PRESS, (char *)event);
                 return;
         }
     }
@@ -774,7 +745,7 @@ static void handle_key_press(xcb_key_press_event_t *event) {
             case XKB_KEY_XF86PowerDown:
             case XKB_KEY_XF86PowerOff:
             case XKB_KEY_XF86Sleep:
-                send_key_to_root(event, false);
+                xcb_send_event(conn, true, screen->root, XCB_EVENT_MASK_BUTTON_PRESS, (char *)event);
                 return;
         }
     }
@@ -785,7 +756,7 @@ static void handle_key_press(xcb_key_press_event_t *event) {
             case XKB_KEY_XF86AudioMute:
             case XKB_KEY_XF86AudioLowerVolume:
             case XKB_KEY_XF86AudioRaiseVolume:
-                send_key_to_root(event, true);
+                xcb_send_event(conn, true, screen->root, XCB_EVENT_MASK_BUTTON_PRESS, (char *)event);
                 return;
         }
     }
@@ -2252,12 +2223,11 @@ int main(int argc, char *argv[]) {
         {"layoutoutline-width", required_argument, NULL, 565},
         {"greeteroutline-width", required_argument, NULL, 566},
 
-		// pass keys
+        // pass keys
         {"pass-media-keys", no_argument, NULL, 601},
         {"pass-screen-keys", no_argument, NULL, 602},
         {"pass-power-keys", no_argument, NULL, 603},
         {"pass-volume-keys", no_argument, NULL, 604},
-        {"special-passthrough", no_argument, NULL, 605},
 
         // bar indicator stuff
         {"bar-indicator", no_argument, NULL, 700},
