@@ -729,7 +729,7 @@ static void handle_key_press(xcb_key_press_event_t *event) {
         }
     }
 
-	// screen keys
+    // screen keys
     if (pass_screen_keys) {
         switch(ksym) {
             case XKB_KEY_XF86MonBrightnessUp:
@@ -739,7 +739,7 @@ static void handle_key_press(xcb_key_press_event_t *event) {
         }
     }
 
-	// power keys
+    // power keys
     if (pass_power_keys) {
         switch(ksym) {
             case XKB_KEY_XF86PowerDown:
@@ -943,7 +943,7 @@ static void process_xkb_event(xcb_generic_event_t *gevent) {
                                   event->state_notify.baseGroup,
                                   event->state_notify.latchedGroup,
                                   event->state_notify.lockedGroup);
-  			if (layout_text != NULL) {
+            if (layout_text != NULL) {
                   free(layout_text);
                   layout_text = NULL;
             }
@@ -1643,7 +1643,7 @@ void update_arguments(int argc, char *argv[], struct option longopts[], char opt
                 break;
 
 
-			// General indicator opts
+            // General indicator opts
             case 400:
                 show_clock = true;
                 always_show_clock = true;
@@ -1670,7 +1670,7 @@ void update_arguments(int argc, char *argv[], struct option longopts[], char opt
                 }
                 break;
 
-			// Alignment stuff
+            // Alignment stuff
             case 500:
                 opt = atoi(optarg);
                 if (opt < 0 || opt > 2) opt = 0;
@@ -1707,7 +1707,7 @@ void update_arguments(int argc, char *argv[], struct option longopts[], char opt
                 greeter_align = opt;
                 break;
 
-			// String stuff
+            // String stuff
             case 510:
                 if (strlen(optarg) > 31) {
                     opterr(1, "time format string can be at most 31 characters\n");
@@ -1748,7 +1748,7 @@ void update_arguments(int argc, char *argv[], struct option longopts[], char opt
                 show_modkey_text = false;
                 break;
 
-			// Font stuff
+            // Font stuff
             case 520:
                 if (strlen(optarg) > 63) {
                     opterr(1, "time font string can be at most 63 characters\n");
@@ -1788,7 +1788,7 @@ void update_arguments(int argc, char *argv[], struct option longopts[], char opt
                 strcpy(fonts[GREETER_FONT],optarg);
                 break;
 
-			// Text size
+            // Text size
             case 530:
                 arg = optarg;
                 if (sscanf(arg, "%lf", &time_size) != 1)
@@ -1847,7 +1847,7 @@ void update_arguments(int argc, char *argv[], struct option longopts[], char opt
                 }
                 break;
 
-			// Positions
+            // Positions
             case 540:
                 //read in to time_x_expr and time_y_expr
                 if (strlen(optarg) > 31) {
@@ -1963,24 +1963,20 @@ void update_arguments(int argc, char *argv[], struct option longopts[], char opt
                 break;
 
 
-			// Pass keys
-			case 601:
-				pass_media_keys = true;
-				break;
-			case 602:
-				pass_screen_keys = true;
-				break;
-			case 603:
-				pass_power_keys = true;
-				break;
-			case 604:
-				pass_volume_keys = true;
-				break;
-            case 605:
-                special_passthrough = true;
+            // Pass keys
+            case 601:
+                pass_media_keys = true;
                 break;
-
-			// Bar indicator
+            case 602:
+                pass_screen_keys = true;
+                break;
+            case 603:
+                pass_power_keys = true;
+                break;
+            case 604:
+                pass_volume_keys = true;
+                break;
+            // Bar indicator
             case 700:
                 bar_enabled = true;
                 break;
@@ -2046,7 +2042,7 @@ void update_arguments(int argc, char *argv[], struct option longopts[], char opt
                 }
                 break;
 
-			// Misc
+            // Misc
             case 900:
                 redraw_thread = true;
                 break;
